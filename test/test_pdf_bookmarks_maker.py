@@ -16,7 +16,11 @@ def read_file(path):
     with open(path, 'rt') as f:
         for line in f.readlines():
             # print(line.split(' '))
-            yield line
+            # ignore blank line
+            if len(line) != 0:
+                yield line
+            else:
+                continue
 
 
 def parse_file(line):
@@ -40,7 +44,21 @@ def parse_file(line):
     return title, book_mark_level, page_number
 
 
+# check the completeness of a pdf catalog
+def check_bookmark(doc):
+    toc = doc.getToC()
+    i = 0
+    for item in toc:
+        if str(item[1]).isdigit():
+            break
+        else:
+            i += 1
+
+    return toc[:i]
+
+
 path = '../pdfs/现代通信网_书签.txt'
+file = '../pdfs/现代通信网.pdf'
 
 
 def test_read_file():
@@ -55,4 +73,11 @@ def test_parse_file():
         assert len(title) != 0
         assert book_mark_level is '1' or '2'
         assert type(page_number) is int
+
+
+def test_check_bookmark():
+    doc = fitz.open(file)
+    bookmark_list = check_bookmark(doc)
+    assert type(bookmark_list) is list
+
 
