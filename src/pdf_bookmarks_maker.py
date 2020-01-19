@@ -7,7 +7,7 @@ URL: www.zhouzying.cn
 Data: 2020.01.17
 Description: make bookmarks with pymupdf.
 """
-# for Ubuntu 18.04.3 LTS you can try those commands to install pymupdf in your computer.
+# for Ubuntu 18.04.3 LTS you can try those commands to install pymupdf on your computer.
 # sudo -H pip3 install --upgrade pip
 # sudo -H python3.6 -m pip install -U pymupdf
 import fitz
@@ -18,7 +18,11 @@ def read_file(path):
     with open(path, 'rt') as f:
         for line in f.readlines():
             # print(line.split(' '))
-            yield line
+            # ignore blank line
+            if len(line) != 0:
+                yield line
+            else:
+                continue
 
 
 def parse_file(line):
@@ -42,11 +46,27 @@ def parse_file(line):
     return title, book_mark_level, page_number
 
 
+# check the completeness of a pdf catalog
+def check_bookmark(doc):
+    toc = doc.getToC()
+    i = 0
+    for item in toc:
+        if str(item[1]).isdigit():
+            break
+        else:
+            i += 1
+
+    return toc[:i]
+
+
 def main():
     path = '../pdfs/现代通信网_书签.txt'
     offset = 9
     doc = fitz.open('../pdfs/现代通信网.pdf')
     catalog = []
+    if len(check_bookmark(doc)) != 0:
+        items = check_bookmark(doc)
+        catalog += items
     for line in read_file(path):
         title, book_mark_level, page_number = parse_file(line)
         catalog.append([book_mark_level, title, page_number + offset])
