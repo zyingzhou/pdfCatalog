@@ -19,7 +19,7 @@ def read_file(path):
         for line in f.readlines():
             # print(line.split(' '))
             # ignore blank line
-            if len(line) != 0:
+            if len(line.strip()) > 0:
                 yield line
             else:
                 continue
@@ -38,6 +38,10 @@ def parse_file(line):
     BookmarkPageNumber: 1
     """
     if '第' in line:
+        book_mark_level = 1
+    elif '附录' in line:
+        book_mark_level = 1
+    elif '参考文献' in line:
         book_mark_level = 1
     else:
         book_mark_level = 2
@@ -60,9 +64,12 @@ def check_bookmark(doc):
 
 
 def main():
-    path = '../pdfs/现代通信网_书签.txt'
-    offset = 9
-    doc = fitz.open('../pdfs/现代通信网.pdf')
+    # path = '../pdfs/现代通信网_书签.txt'
+    path = '../pdfs/C程序设计_第5版.txt'
+    # offset = 9
+    offset = 24
+    # doc = fitz.open('../pdfs/现代通信网.pdf')
+    doc = fitz.open('../pdfs/C程序设计_第5版.pdf')
     catalog = []
     if len(check_bookmark(doc)) != 0:
         items = check_bookmark(doc)
@@ -71,7 +78,8 @@ def main():
         title, book_mark_level, page_number = parse_file(line)
         catalog.append([book_mark_level, title, page_number + offset])
     doc.setToC(catalog)
-    doc.save('../pdfs/现代通信网_已添加书签.pdf')
+    # doc.save('../pdfs/现代通信网_已添加书签.pdf')
+    doc.save('../pdfs/C程序设计_第5版_已添加书签.pdf')
 
 
 if __name__ == "__main__":
