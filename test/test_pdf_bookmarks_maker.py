@@ -11,13 +11,16 @@ import pytest
 import re
 import fitz
 
+path = '../pdfs/现代通信网_书签.txt'
+file = '../pdfs/现代通信网.pdf'
+
 
 def read_file(path):
     with open(path, 'rt') as f:
         for line in f.readlines():
             # print(line.split(' '))
             # ignore blank line
-            if len(line) != 0:
+            if len(line.strip()) > 0:
                 yield line
             else:
                 continue
@@ -37,6 +40,10 @@ def parse_file(line):
     """
     if '第' in line:
         book_mark_level = 1
+    elif '附录' in line:
+        book_mark_level = 1
+    elif '参考文献' in line:
+        book_mark_level = 1
     else:
         book_mark_level = 2
     # title = str(line).replace(str(page_number), '')
@@ -55,10 +62,6 @@ def check_bookmark(doc):
             i += 1
 
     return toc[:i]
-
-
-path = '../pdfs/现代通信网_书签.txt'
-file = '../pdfs/现代通信网.pdf'
 
 
 def test_read_file():
