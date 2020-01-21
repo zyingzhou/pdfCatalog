@@ -26,28 +26,33 @@ def read_file(path):
 
 
 def parse_file(line):
-    # add Escape character
-    pattern = "\\d+"
-    page_number = int(re.findall(pattern, line)[-1])
-    # 中文目录
-    """
-    目录格式
-    BookmarkBegin
-    BookmarkTitle: title
-    BookmarkLevel: 1
-    BookmarkPageNumber: 1
-    """
-    if '第' in line:
-        book_mark_level = 1
-    elif '附录' in line:
-        book_mark_level = 1
-    elif '参考文献' in line:
-        book_mark_level = 1
-    else:
-        book_mark_level = 2
-    # title = str(line).replace(str(page_number), '')
-    title = line
-    return title, book_mark_level, page_number
+    regex = re.compile(r'(.*?)(\s*)(\d+$)')
+    result = regex.search(line)
+    try:
+        title = result.group(1).strip()
+        page_number = int(result.group(3).strip())
+        # 中文目录
+        """
+        目录格式
+        BookmarkBegin
+        BookmarkTitle: title
+        BookmarkLevel: 1
+        BookmarkPageNumber: 1
+        """
+        if '第' in line:
+            book_mark_level = 1
+        elif '附录' in line:
+            book_mark_level = 1
+        elif '参考文献' in line:
+            book_mark_level = 1
+        else:
+            book_mark_level = 2
+        return title, book_mark_level, page_number
+
+    except:
+        with open('./error_log.txt', 'a', encoding='utf-8') as log:
+            log.write('This line may be have wrong: {}\n'.format(line))
+            log.close()
 
 
 # check the completeness of a pdf catalog
