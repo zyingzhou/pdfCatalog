@@ -26,8 +26,8 @@ def read_file(path):
 
 
 def parse_file(line):
-    # items = line.split(' ')
-    pattern = "\d+"
+    # add Escape character
+    pattern = "\\d+"
     page_number = int(re.findall(pattern, line)[-1])
     # 中文目录
     """
