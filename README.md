@@ -1,2 +1,2 @@
 # pdfBookmark
-Build bookmarks for pdf documents  automaticly.
+Build bookmarks for pdf documents  automatically.
