@@ -51,7 +51,7 @@ def parse_file(line):
         return title, book_mark_level, page_number
 
     except:
-        with open('./error_log.txt', 'a', encoding='utf-8') as log:
+        with open('./pdfBookmark_error_log.txt', 'a', encoding='utf-8') as log:
             log.write('This line may be have wrong: {}\n'.format(line))
             log.close()
 
