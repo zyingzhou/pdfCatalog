@@ -51,7 +51,7 @@ def parse_file(line):
         return title, book_mark_level, page_number
 
     except:
-        with open('./error_log.txt', 'a', encoding='utf-8') as log:
+        with open('./pdfBookmark_error_log.txt', 'a', encoding='utf-8') as log:
             log.write('This line may be have wrong: {}\n'.format(line))
             log.close()
 
@@ -109,6 +109,18 @@ def main():
         doc.setToC(catalog)
         doc.save(output_file)
         print('Adding bookmarks successfully.')
+
+    elif args.pdf is None:
+        print('please use -f flag to specify the path of pdf file you want to import bookmark in.')
+
+    elif args.catalog is None:
+        print('please use -c flag to specify the path of the bookmark.')
+
+    elif args.output is None:
+        print('please use -o flag to specify the path to save output pdf file')
+
+    else:
+        print('please check runtime environment!')
 
 
 if __name__ == "__main__":
