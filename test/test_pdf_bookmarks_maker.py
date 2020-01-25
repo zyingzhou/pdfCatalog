@@ -10,8 +10,9 @@ Description: test file.
 import pytest
 import re
 import fitz
+import time
 
-path = '../pdfs/现代通信网_书签.txt'
+path = '../pdfs/bookmark.txt'
 file = '../pdfs/现代通信网.pdf'
 
 
@@ -21,15 +22,16 @@ def read_file(path):
             # print(line.split(' '))
             # ignore blank line
             if len(line.strip()) > 0:
-                yield line
+                # strip the space behind the page-number
+                yield line.strip()
             else:
                 continue
 
 
 def parse_file(line):
     regex = re.compile(r'(.*?)(\s*)(\d+$)')
-    result = regex.search(line)
     try:
+        result = regex.search(line)
         title = result.group(1).strip()
         page_number = int(result.group(3).strip())
         # 中文目录
@@ -52,7 +54,7 @@ def parse_file(line):
 
     except:
         with open('./pdfBookmark_error_log.txt', 'a', encoding='utf-8') as log:
-            log.write('This line may be have wrong: {}\n'.format(line))
+            log.write('{}: This line may be have wrong: {}'.format(time.asctime(), line))
             log.close()
 
 
@@ -72,7 +74,7 @@ def check_bookmark(doc):
 def test_read_file():
 
     for line in read_file(path):
-        assert list(line).count('\n') == 1
+        assert len(line.strip()) >= 1
 
 
 def test_parse_file():
