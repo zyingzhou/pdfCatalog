@@ -5,7 +5,7 @@ PDF文档书签制作
 Author: zhiying
 URL: www.zhouzying.cn
 Data: 2020.01.17
-Description: make bookmarks with pymupdf.
+Description: Build bookmarks for pdf documents  automatically with pdfBookmark.
 """
 # for Ubuntu 18.04.3 LTS you can try those commands to install pymupdf on your computer.
 # sudo -H pip3 install --upgrade pip
@@ -127,14 +127,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-
-
-
-
