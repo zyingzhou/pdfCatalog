@@ -7,7 +7,6 @@ Date: 20-1-19 下午1:58
 Description: test file.
 
 """
-import pytest
 import re
 import fitz
 import time
