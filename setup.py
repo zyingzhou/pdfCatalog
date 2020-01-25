@@ -17,7 +17,7 @@ def read_description():
 
 setup(
     name='pdfBookmark',
-    version='1.0.0beta8',
+    version='1.0.0beta9',
     description='Build bookmarks for PDF documents automatically.',
     long_description=read_description(),
     author='zhiying zhou',
