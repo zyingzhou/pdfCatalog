@@ -13,6 +13,7 @@ Description: make bookmarks with pymupdf.
 import fitz
 import re
 import argparse
+import time
 
 
 def read_file(path):
@@ -21,15 +22,16 @@ def read_file(path):
             # print(line.split(' '))
             # ignore blank line
             if len(line.strip()) > 0:
-                yield line
+                # strip the space behind the page-number
+                yield line.strip()
             else:
                 continue
 
 
 def parse_file(line):
     regex = re.compile(r'(.*?)(\s*)(\d+$)')
-    result = regex.search(line)
     try:
+        result = regex.search(line)
         title = result.group(1).strip()
         page_number = int(result.group(3).strip())
         # 中文目录
@@ -52,7 +54,7 @@ def parse_file(line):
 
     except:
         with open('./pdfBookmark_error_log.txt', 'a', encoding='utf-8') as log:
-            log.write('This line may be have wrong: {}\n'.format(line))
+            log.write('{}: This line may be have wrong: {}'.format(time.asctime(), line))
             log.close()
 
 
