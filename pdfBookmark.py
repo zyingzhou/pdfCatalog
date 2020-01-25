@@ -40,7 +40,7 @@ def parse_file(line):
         BookmarkLevel: 1
         BookmarkPageNumber: 1
         """
-        if '第' in line:
+        if '第' in line and '章' in line:
             book_mark_level = 1
         elif '附录' in line:
             book_mark_level = 1
