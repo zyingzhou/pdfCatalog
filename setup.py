@@ -30,7 +30,6 @@ setup(
     tests_require=['pytest'],
     entry_points={'console_scripts': ['pdfBookmark = pdfBookmark:main']},
     classifiers=[
-        'Package :: pdfBookmark',
         'Development Status :: Production/dev',
         'Environment :: Console',
         'Intended Audience :: Everyone',
