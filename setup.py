@@ -31,7 +31,6 @@ setup(
     entry_points={'console_scripts': ['pdfBookmark = pdfBookmark:main']},
     classifiers=[
         'Environment :: Console',
-        'License :: OSI Approved :: GNU Affero General Public License v3.0',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
