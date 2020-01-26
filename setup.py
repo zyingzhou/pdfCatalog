@@ -30,9 +30,7 @@ setup(
     tests_require=['pytest'],
     entry_points={'console_scripts': ['pdfBookmark = pdfBookmark:main']},
     classifiers=[
-        'Development Status :: Production/dev',
         'Environment :: Console',
-        'Intended Audience :: Everyone',
         'License :: OSI Approved :: GNU Affero General Public License v3.0',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
