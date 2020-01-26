@@ -11,7 +11,7 @@ import re
 import fitz
 import time
 
-path = '../pdfs/bookmark.txt'
+path = '../pdfs/catalog.txt'
 file = '../pdfs/现代通信网.pdf'
 
 
@@ -52,7 +52,7 @@ def parse_file(line):
         return title, book_mark_level, page_number
 
     except:
-        with open('./pdfBookmark_error_log.txt', 'a', encoding='utf-8') as log:
+        with open('./pdfCatalog_error_log.txt', 'a', encoding='utf-8') as log:
             log.write('{}: This line may be have wrong: {}'.format(time.asctime(), line))
             log.close()
 
@@ -88,5 +88,3 @@ def test_check_bookmark():
     doc = fitz.open(file)
     bookmark_list = check_bookmark(doc)
     assert type(bookmark_list) is list
-
-

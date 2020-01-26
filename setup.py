@@ -16,19 +16,19 @@ def read_description():
 
 
 setup(
-    name='pdfBookmark',
+    name='pdfCatalog',
     version='1.0.0',
-    description='Build bookmarks for PDF documents automatically.',
+    description='Build catalogs for PDF documents automatically.',
     long_description=read_description(),
     author='zhiying zhou',
     author_email='zhiyingstatham@qq.com',
-    url='https://github.com/zyingzhou/pdfBookmark',
+    url='https://github.com/zyingzhou/pdfCatalog',
     license='GNU Affero General Public License v3.0',
     install_requires="pymupdf",
 
-    py_modules=['pdfBookmark', 'fitz'],
+    py_modules=['pdfCatalog', 'fitz'],
     tests_require=['pytest'],
-    entry_points={'console_scripts': ['pdfBookmark = pdfBookmark:main']},
+    entry_points={'console_scripts': ['pdfCatalog = pdfCatalog:main']},
     classifiers=[
         'Environment :: Console',
         'Operating System :: OS Independent',

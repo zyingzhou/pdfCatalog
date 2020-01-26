@@ -5,7 +5,7 @@ PDF文档书签制作
 Author: zhiying
 URL: www.zhouzying.cn
 Data: 2020.01.17
-Description: Build bookmarks for pdf documents  automatically with pdfBookmark.
+Description: Build catalogs for pdf documents  automatically with pdfCatalog.
 """
 # for Ubuntu 18.04.3 LTS you can try those commands to install pymupdf on your computer.
 # sudo -H pip3 install --upgrade pip
@@ -35,13 +35,6 @@ def parse_file(line):
         title = result.group(1).strip()
         page_number = int(result.group(3).strip())
         # 中文目录
-        """
-        目录格式
-        BookmarkBegin
-        BookmarkTitle: title
-        BookmarkLevel: 1
-        BookmarkPageNumber: 1
-        """
         if '第' in line and '章' in line:
             book_mark_level = 1
         elif '附录' in line:
@@ -53,7 +46,7 @@ def parse_file(line):
         return title, book_mark_level, page_number
 
     except:
-        with open('./pdfBookmark_error_log.txt', 'a', encoding='utf-8') as log:
+        with open('./pdfCatalog_error_log.txt', 'a', encoding='utf-8') as log:
             log.write('{}: This line may be have wrong: {}'.format(time.asctime(), line))
             log.close()
 
@@ -73,16 +66,16 @@ def check_bookmark(doc):
 
 def main():
 
-    parser = argparse.ArgumentParser(description='Build bookmarks for pdf documents automatically.',
+    parser = argparse.ArgumentParser(description='Build catalogs for pdf documents automatically.',
                                      epilog='for bugs please submit issuses at https://github.com'
-                                            '/zyingzhou/pdfBookmark.', prog='pdfBookmark')
+                                            '/zyingzhou/pdfCatalog.', prog='pdfCatalog')
 
-    parser.add_argument('-f', '--pdf', dest='pdf', help='the path of pdf file you want to import bookmark in')
+    parser.add_argument('-f', '--pdf', dest='pdf', help='the path of pdf file you want to import catalog in')
 
-    parser.add_argument('-c', '--catalog', dest='catalog', help='the path of the bookmark')
+    parser.add_argument('-c', '--catalog', dest='catalog', help='the path of the catalog')
 
     parser.add_argument('-s', '--offset', dest='offset', type=int, default=0, help='pdf document page offset compared '
-                                                                                   'with the bookmark your provide')
+                                                                                   'with the catalog your provide')
 
     parser.add_argument('-o', '--output', dest='output', help='specify path to save output pdf file')
 
@@ -92,7 +85,7 @@ def main():
     args = parser.parse_args()
 
     if args.pdf is not None and args.catalog is not None and args.output is not None:
-        print('beginning adding bookmarks into pdf files')
+        print('beginning adding catalogs into pdf files')
         file_path = str(args.pdf)
         file_name = str(file_path).split('/')[-1].split('.')[0]
         bookmark_path = str(args.catalog)
@@ -110,13 +103,13 @@ def main():
             catalog.append([book_mark_level, title, page_number + offset])
         doc.setToC(catalog)
         doc.save(output_file)
-        print('Adding bookmarks successfully.')
+        print('Added catalogs successfully.')
 
     elif args.pdf is None:
-        print('please use -f flag to specify the path of pdf file you want to import bookmark in.')
+        print('please use -f flag to specify the path of pdf file you want to import catalog in.')
 
     elif args.catalog is None:
-        print('please use -c flag to specify the path of the bookmark.')
+        print('please use -c flag to specify the path of the catalog.')
 
     elif args.output is None:
         print('please use -o flag to specify the path to save output pdf file')

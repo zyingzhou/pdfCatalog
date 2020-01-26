@@ -7,4 +7,4 @@ Date: 20-1-23 下午3:43
 Description: Initialize the pdfBookmark package
 
 """
-__all__ = ["pdfBookmark"]
+__all__ = ["pdfCatalog"]
