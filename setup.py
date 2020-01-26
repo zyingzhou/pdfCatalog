@@ -17,7 +17,7 @@ def read_description():
 
 setup(
     name='pdfBookmark',
-    version='1.0.0beta9',
+    version='1.0.0',
     description='Build bookmarks for PDF documents automatically.',
     long_description=read_description(),
     author='zhiying zhou',
@@ -28,6 +28,21 @@ setup(
 
     py_modules=['pdfBookmark', 'fitz'],
     tests_require=['pytest'],
-    entry_points={'console_scripts': ['pdfBookmark = pdfBookmark:main']}
+    entry_points={'console_scripts': ['pdfBookmark = pdfBookmark:main']},
+    classifiers=[
+        'Package :: pdfBookmark',
+        'Development Status :: Production/dev',
+        'Environment :: Console',
+        'Intended Audience :: Everyone',
+        'License :: OSI Approved :: GNU Affero General Public License v3.0',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Topic :: Software Development :: Libraries :: Python Modules'
+    ]
 
 )
