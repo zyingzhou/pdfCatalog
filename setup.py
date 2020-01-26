@@ -20,6 +20,7 @@ setup(
     version='1.0.0',
     description='Build catalogs for PDF documents automatically.',
     long_description=read_description(),
+    long_description_content_type='text/markdown',
     author='zhiying zhou',
     author_email='zhiyingstatham@qq.com',
     url='https://github.com/zyingzhou/pdfCatalog',
