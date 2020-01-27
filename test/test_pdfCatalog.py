@@ -33,14 +33,6 @@ def parse_file(line):
         result = regex.search(line)
         title = result.group(1).strip()
         page_number = int(result.group(3).strip())
-        # 中文目录
-        """
-        目录格式
-        BookmarkBegin
-        BookmarkTitle: title
-        BookmarkLevel: 1
-        BookmarkPageNumber: 1
-        """
         if '第' in line and '章' in line:
             book_mark_level = 1
         elif '附录' in line:
@@ -53,7 +45,8 @@ def parse_file(line):
 
     except:
         with open('./pdfCatalog_error_log.txt', 'a', encoding='utf-8') as log:
-            log.write('{}: This line may be have wrong: {}'.format(time.asctime(), line))
+            print('Error: This line"{}" lacks page number.'.format(line))
+            log.write('{}: This line may be have wrong: {}\n'.format(time.asctime(), line))
             log.close()
 
 
