@@ -11,16 +11,15 @@ from setuptools import setup
 
 
 def read_description():
-    with open('./README.md') as readme:
+    with open('./README.rst') as readme:
         return readme.read()
 
 
 setup(
     name='pdfCatalog',
-    version='1.0.0b1',
+    version='1.0.0b2',
     description='Build catalogs for PDF documents automatically.',
     long_description=read_description(),
-    long_description_content_type='text/markdown',
     author='zhiying zhou',
     author_email='zhiyingstatham@qq.com',
     url='https://github.com/zyingzhou/pdfCatalog',
