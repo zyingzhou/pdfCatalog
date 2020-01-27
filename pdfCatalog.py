@@ -47,7 +47,8 @@ def parse_file(line):
 
     except:
         with open('./pdfCatalog_error_log.txt', 'a', encoding='utf-8') as log:
-            log.write('{}: This line may be have wrong: {}'.format(time.asctime(), line))
+            print('Error: This line"{}" lacks page number.'.format(line))
+            log.write('{}: This line may be have wrong: {}\n'.format(time.asctime(), line))
             log.close()
 
 
