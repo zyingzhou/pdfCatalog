@@ -46,10 +46,7 @@ def parse_file(line):
         return title, book_mark_level, page_number
 
     except:
-        with open('./pdfCatalog_error_log.txt', 'a', encoding='utf-8') as log:
-            print('Error: This line"{}" lacks page number.'.format(line))
-            log.write('{}: This line may be have wrong: {}\n'.format(time.asctime(), line))
-            log.close()
+        raise ValueError('Correct catalog pattern should be "title page-number"')
 
 
 # check the completeness of a pdf catalog
