@@ -17,18 +17,24 @@ import time
 
 
 def read_file(path):
-    with open(path, 'rt') as f:
-        for line in f.readlines():
-            # print(line.split(' '))
-            # ignore blank line
-            if len(line.strip()) > 0:
-                # strip the space behind the page-number
-                yield line.strip()
-            else:
-                continue
+    try:
+        with open(path, 'rt', encoding='utf-8') as f:
+            for line in f.readlines():
+                # print(line.split(' '))
+                # ignore blank line
+                if len(line.strip()) > 0:
+                    # strip the space behind the page-number
+                    yield line.strip()
+                else:
+                    continue
+    except:
+        raise ValueError('wrong encoding, please use utf-8 encode for your catalog')
 
 
 def parse_file(line):
+    """
+    The first bookmark_level should be 1
+    """
     regex = re.compile(r'(.*?)(\s*)(\d+$)')
     try:
         result = regex.search(line)
@@ -37,12 +43,17 @@ def parse_file(line):
         # 中文目录
         if '第' in line and '章' in line:
             book_mark_level = 1
-        elif '附录' in line:
+        elif '第' in line and '部分' in line:
             book_mark_level = 1
-        elif '参考文献' in line:
+        elif '第' in line and '篇' in line:
+            book_mark_level = 1
+        elif '目录' or '封面' or '扉页' or '序言' or '前言' or '内容简介' or '版权页' in line:
+            book_mark_level = 1
+        elif '附录' or '参考文献' in line:
             book_mark_level = 1
         else:
             book_mark_level = 2
+
         return title, book_mark_level, page_number
 
     except:
