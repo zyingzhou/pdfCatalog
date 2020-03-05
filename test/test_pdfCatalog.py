@@ -14,6 +14,7 @@ from pdfCatalog import check_bookmark
 
 path = '../pdfs/catalog.txt'
 file = '../pdfs/现代通信网.pdf'
+offset = 0
 
 
 def test_read_file():
@@ -34,3 +35,11 @@ def test_check_bookmark():
     doc = fitz.open(file)
     bookmark_list = check_bookmark(doc)
     assert type(bookmark_list) is list
+
+
+def test_first_bookmark_level():
+    catalog = []
+    for line in read_file(path):
+        title, book_mark_level, page_number = parse_file(line)
+        catalog.append([book_mark_level, title, page_number + offset])
+    assert type(catalog[0]) is list and catalog[0][0] == 1
