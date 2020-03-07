@@ -83,4 +83,8 @@ win + R open the terminal, the next steps are the same as on the Linux.
 Releases
 ========
 
-v1.0.0: First release. Build catalogs for pdf documents automatically
+v1.0.2: Use utf-8 encoding text and catalog becomes more beautiful!
+
+v1.0.1: Fixed some bugs.
+
+v1.0.0: First release. Build catalogs for pdf documents automatically.
