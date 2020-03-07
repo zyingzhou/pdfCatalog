@@ -47,9 +47,23 @@ def parse_file(line):
             book_mark_level = 1
         elif '第' in line and '篇' in line:
             book_mark_level = 1
-        elif '目录' or '封面' or '扉页' or '序言' or '前言' or '内容简介' or '版权页' in line:
+        elif '封面' in line:
             book_mark_level = 1
-        elif '附录' or '参考文献' in line:
+        elif '扉页' in line:
+            book_mark_level = 1
+        elif '版权页' in line:
+            book_mark_level = 1
+        elif '序言' in line:
+            book_mark_level = 1
+        elif '前言' in line:
+            book_mark_level = 1
+        elif '内容简介' in line:
+            book_mark_level = 1
+        elif '目录' in line:
+            book_mark_level = 1
+        elif '附录' in line:
+            book_mark_level = 1
+        elif '参考文献' in line:
             book_mark_level = 1
         else:
             book_mark_level = 2
@@ -58,6 +72,24 @@ def parse_file(line):
 
     except:
         raise ValueError('Correct catalog pattern should be "title page-number"')
+
+
+def _check_first_bookmark_level(ls):
+    """
+    check first bookmark level whether 1
+    :param ls: nested list of catalog.List this [[bookmark_level, title, page_number],...]
+    :return: bool
+    """
+    if type(ls) is list and type(ls[0]) is list:
+        if type(ls[0][0]) is int:
+            if ls[0][0] != 1:
+                return True
+            else:
+                return False
+        else:
+            raise ValueError('bookmark level should be int')
+    else:
+        raise ValueError('catalog should be nested list')
 
 
 # check the completeness of a pdf catalog
@@ -110,6 +142,8 @@ def main():
         for line in read_file(bookmark_path):
             title, book_mark_level, page_number = parse_file(line)
             catalog.append([book_mark_level, title, page_number + offset])
+        if _check_first_bookmark_level(catalog):
+            raise ValueError('The first bookmark level is not 1')
         doc.setToC(catalog)
         doc.save(output_file)
         print('Added catalogs successfully.')
