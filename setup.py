@@ -17,7 +17,7 @@ def read_description():
 
 setup(
     name='pdfCatalog',
-    version='1.0.1',
+    version='1.0.2',
     description='Build catalogs for PDF documents automatically.',
     long_description=read_description(),
     long_description_content_type='text/x-rst',
